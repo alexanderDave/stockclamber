@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Launcher_Test</name>
+	<name>MyProj</name>
 	<comment></comment>
 	<projects>
+		||	this is a proj for myself	||
 	</projects>
 	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
+		V1.0.0
 	</buildSpec>
 	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
+		|| T.D. (which means thanks dw!)||
 	</natures>
 </projectDescription>
