@@ -21,8 +21,8 @@ callback=historySearchHandler&rt=jsonp&r=0.8391495715053367&0.9677250558488026''
 #murl = r'http://q.stock.sohu.com/hisHq?code=zs_000001&start=20000504&end=20151215&stat=1&order=D&period=d&callback=historySearchHandler&rt=jsonp&r=0.8391495715053367&0.9677250558488026'
 
 code = 'cn_600064'
-start_time = '20090105'
-end_time = '20191213'
+start_time = '20190101'
+end_time = '20191220'
 baseurl = 'http://q.stock.sohu.com/hisHq?code={0}&start={1}&end={2}&stat=1&order=D&period=d&callback=historySearchHandler&rt=jsonp'.format(code,start_time,end_time)
 
 def getHq():
@@ -50,7 +50,7 @@ def getHq():
 
 if __name__ == "__main__":
     print('code goes here:')
-    # with open('600064.txt','wb') as f:
-    #     f.write(bytes(requests.get(baseurl).text,encoding='utf8'))
-    # print(requests.get(baseurl).text)
-    getHq()
+    with open('6000641.txt','wb') as f:
+        f.write(bytes(requests.get(baseurl).text,encoding='utf8'))
+    print(requests.get(baseurl).text)
+    # getHq()
