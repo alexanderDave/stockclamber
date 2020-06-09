@@ -84,12 +84,12 @@ def dealTrade(dates):
         mOpen.append(float(info[1]))                                # 开盘价
         mClose.append(float(info[2]))                               # 收盘价
         mCent.append(float(info[3]))                                # 涨跌额
-        mPCent.append(float(info[4].strip('%'))/100)                # 涨跌幅
+        mPCent.append(info[4])                # 涨跌幅
         mButton.append(float(info[5]))                              # 最低
         mTop.append(float(info[6]))                                 # 最高
         mDeal.append(float(info[7]))                                # 成交量
-        mMone.append(float(info[8])/10000)                          # 成交额
-        change.append(float(info[9].strip('%'))/100)                # 换手率
+        mMone.append(float(info[8]))                          # 成交额
+        change.append(info[9])                # 换手率
     
     mTime.reverse()
     mStime.reverse()
@@ -103,7 +103,7 @@ def dealTrade(dates):
     mMone.reverse()
     change.reverse()
     result['riqi_1']= mTime
-    result['riqi_1']= mStime
+    result['riqi_2']= mStime
     result['kaipanjia']= mOpen
     result['shoupanjia']= mClose
     result['zhangdie']= mCent
@@ -133,22 +133,20 @@ if __name__ == "__main__":
     info = getDates('cn_603566')
     dates = (getBody(info))['hq']
     info = dealTrade(dates)
-    riqi = info['day']
-    money = info['money']
-    change= info['change']
-    shoupan= info['shoupan']
-    zhangdie = info['zhangdie']
+    print(info['huanshoulv'])
+    print(len(info['huanshoulv']))
+
     
-    plt.plot(shoupan,'r')
-    #plt.plot(money,'g')
-    #plt.plot(change,'b')
-    #plt.plot(zhangdie,'r')
-    plt.show()
+#    plt.plot(shoupan,'r')
+#    #plt.plot(money,'g')
+#    #plt.plot(change,'b')
+#    #plt.plot(zhangdie,'r')
+#    plt.show()
     
-    min_index, min_number = min(enumerate(shoupan), key=operator.itemgetter(1))
-    max_index, max_number = max(enumerate(shoupan), key=operator.itemgetter(1))
-    print(min_number)
-    print(max_number)
+#    min_index, min_number = min(enumerate(shoupan), key=operator.itemgetter(1))
+#    max_index, max_number = max(enumerate(shoupan), key=operator.itemgetter(1))
+#    print(min_number)
+#    print(max_number)
     
     
     

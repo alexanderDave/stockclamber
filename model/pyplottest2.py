@@ -14,10 +14,13 @@ from scipy import stats
 from pylab import *
 import datetime
 import operator
+from model import getDate
 
 
 
 #plt.xkcd()
+
+
 plt.rcdefaults()
 
 info = getDate.getDates('cn_300619')

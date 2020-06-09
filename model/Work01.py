@@ -29,6 +29,7 @@ plt.scatter(zuidi,zuigao)
 
 slope,intercept,r_value,p_value,std_err = stats.linregress(zuidi,zuigao)
 print(r_value ** 2)
+print('fitline is {0}x+{1}'.format(slope,intercept))
 
 def predict(x):
     return [slope * t + intercept for t in x]

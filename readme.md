@@ -1,3 +1,6 @@
 # here is a demo for stu.
+- begin of SML
 
-# beginner of SML
+- usage
+
+- func
