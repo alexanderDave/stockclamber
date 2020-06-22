@@ -8,9 +8,13 @@ from utils.DateUtils import stockDate
 
 class Dateanly():
 
-    def __init__(self):
+    def __init__(self,name):
+        self.date = stockDate.readDate(name)
 
         pass
+
+    def getDateAvg(self):
+        return self.getAvg(self.date)
 
     @staticmethod
     def getAvg(dates):
@@ -22,16 +26,19 @@ class Dateanly():
         return avg_sizes
 
 
-
 if __name__ == '__main__':
-    yayy = stockDate.readDate('cn_002365')
-    zmkj = stockDate.readDate('cn_300232')
-    njgk = stockDate.readDate('cn_600064')
-    jyh = stockDate.readDate('cn_300619')
+    # yayy = stockDate.readDate('cn_002365')
+    # zmkj = stockDate.readDate('cn_300232')
+    # njgk = stockDate.readDate('cn_600064')
+    # jyh = stockDate.readDate('cn_300619')
     plk = stockDate.readDate('cn_603566')
 
-    print(Dateanly.getAvg(yayy))
-    print(Dateanly.getAvg(zmkj))
-    print(Dateanly.getAvg(njgk))
-    print(Dateanly.getAvg(jyh))
+    # print(Dateanly.getAvg(yayy))
+    # print(Dateanly.getAvg(zmkj))
+    # print(Dateanly.getAvg(njgk))
+    # print(Dateanly.getAvg(jyh))
     print(Dateanly.getAvg(plk))
+    date = Dateanly('cn_002365')
+    print(date.getDateAvg())
+
+

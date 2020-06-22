@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import os
+import os,time
 import requests
 import pickle
 import numpy
@@ -66,7 +66,7 @@ class stockDate():
 
 if __name__ == '__main__':
     # 存储待分析数据
-
+    print('test here')
     # cn_002365 = stockDate('cn_002365', '20180101', '20200608')
     # cn_300232 = stockDate('cn_300232', '20180101', '20200608')
     # cn_600064 = stockDate('cn_600064', '20180101', '20200608')
@@ -80,11 +80,10 @@ if __name__ == '__main__':
     # cn_300619.savedate()
     # cn_603566.savedate()
 
-    yayy = stockDate.readDate('cn_002365')
-    zmkj = stockDate.readDate('cn_300232')
-    njgk = stockDate.readDate('cn_600064')
-    jyh = stockDate.readDate('cn_300619')
-    plk = stockDate.readDate('cn_603566')
+    # yayy = stockDate.readDate('cn_002365')
+    # zmkj = stockDate.readDate('cn_300232')
+    # njgk = stockDate.readDate('cn_600064')
+    # jyh = stockDate.readDate('cn_300619')
+    # plk = stockDate.readDate('cn_603566')
     # print(len(a['hq']))   # 569
-
 
