@@ -8,6 +8,8 @@ Created on Fri Dec  6 10:45:58 2019
 this is a practise for date_analyse
 """
 import requests
+import numpy as np
+import pandas as pd
 import json
 
 headers = {'User-Agent':'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1'}
@@ -50,7 +52,14 @@ def getHq():
 
 if __name__ == "__main__":
     print('code goes here:')
-    with open('6000641.txt','wb') as f:
-        f.write(bytes(requests.get(baseurl).text,encoding='utf8'))
-    print(requests.get(baseurl).text)
+    # with open('6000641.txt','wb') as f:
+    #     f.write(bytes(requests.get(baseurl).text,encoding='utf8'))
+    # print(requests.get(baseurl).text)
     # getHq()
+    a = {'a':[1,2],'b':[3,4]}
+    b = pd.DataFrame(data=a)
+    c = b.values
+    d = c[:,0]
+    print(b)
+    print(c)
+    print(d)
