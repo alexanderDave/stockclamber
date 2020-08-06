@@ -4,6 +4,7 @@ import time
 import utils.ioutil as ioutil
 import tushare as ts
 import io, sys, os
+import pandas
 
 
 class mstock(object):
@@ -28,9 +29,15 @@ class mstock(object):
             # 按日获取数据并保存
             file_name = '{0}_{1}.pickle'.format(scode, day.replace('-', '_'))
             path = os.path.join(self.mpath, file_name)
-            day_date = ts.get_tick_data(scode, date=day, src='tt')
+            while True:
+                print('开始请求:{0}'.format(file_name))
+                day_date = ts.get_tick_data(scode, date=day, src='tt')
+                time.sleep(1)
+                if isinstance(day_date, pandas.DataFrame):
+                    break
+                time.sleep(5)
             ioutil.save_pickle(day_date, path)
-            time.sleep(3)
+
 
 
     def test(self):
@@ -42,7 +49,7 @@ if __name__ == '__main__':
     # mstock().getAllDate('002365')
 
 #     /Users/yuhandai/OneDrive/project/StockPalt/dates/002365_20200722.pickle
-    path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/002365_20200722.pickle'
+    path = '/Users/yuhandai/OneDrive/project/StockPalt/model/__pycache__/002365_20200722.pickle'
     dframe = ioutil.load_pickle(path)
     mstock().getDaydeal('002365', dframe)
 
