@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-import time
+import time,os
 import tushare as ts
 import pandas as pd
 import utils.ioutil as ioutil
 
-file_path = '/Users/yuhandai/OneDrive/project/StockPalt/stockdb/yayy.pickle'
-save_path = '/Users/yuhandai/OneDrive/project/StockPalt/stockdb/longhubang'
 
+lhb_path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb/'
+excel = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lnb.xls'
 
 
 
@@ -40,15 +40,105 @@ def get_lhb(mdate):
     print(mdate)
     while True:
         date = ts.top_list(mdate)
-        file_name = '{0}_{1}.pickle'.format(save_path, mdate.replace('-', '_'))
+        file_name = '{0}_{1}.pickle'.format('lhb_path', mdate.replace('-', '_'))
         if isinstance(date, pd.DataFrame):
             break
         time.sleep(2)
     ioutil.save_pickle(date, file_name)
 
+def save_to_excel():
+    files = os.listdir(lhb_path)
+
+    with pd.ExcelWriter(excel) as fi:
+        for f in files:
+            if f.__contains__('DS_Store'):
+                continue
+            filepath = os.path.join(lhb_path, f)
+            dates = ioutil.load_pickle(filepath)
+            savename = f[11:-7]
+            print('saveing %s '% filepath)
+            dates.to_excel(fi, savename, index=False)
+        print('over!')
+
+def deal_lhb():
+
+    lhbv2_path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/'
+    names = os.listdir(lhb_path)
+    for name in names:
+        if name.__contains__('DS_Store'):
+            continue
+        date_path = os.path.join(lhb_path,name)
+        save_path = os.path.join(lhbv2_path,name)
+        print(date_path)
+        df = ioutil.load_pickle(date_path)
+        df = df.drop(df[df['name'].str.contains('ST|退市|退') == True].index)
+        df = df.drop_duplicates('code', keep='first', inplace=False)
+        print(save_path)
+        ioutil.save_pickle(df, save_path)
+    print('over')
 
 
-# dates = ioutil.load_pickle(file_path)
-# mdatetime = dates.index.tolist()
+    # excel = '/Users/yuhandai/OneDrive/project/StockPalt/dates/test1.xls'
+    # with pd.ExcelWriter(excel) as fi:
+    #     test_path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb/longhubang_2020_08_06.pickle'  # size:19210
+    #     df = ioutil.load_pickle(test_path)
+    #     df.to_excel(fi, 'before', index=False)
+    #     # df = df.drop(df[(df['name'].contains('ST')) | (df['name'].contains('退市'))].index)
+    #     df = df.drop(df[df['name'].str.contains('ST|退市|退') == True].index)
+    #     # df = df.drop(df.name.__contains__('ST') or df.name.__contains__('退'),axis = 0)
+    #     df = df.drop_duplicates('code', keep='first', inplace=False)
+    #     df.to_excel(fi, 'after', index=False)
+
+
+
+def getdetial(mpath):
+    date = ioutil.load_pickle(mpath)
+    date['pchange'] = date['pchange'].astype('float')
+    # date['sell'] = date['sell'].astype('float')
+    df = date[date['pchange'] > 0 ]
+    excel = '/Users/yuhandai/OneDrive/project/StockPalt/dates/test2.xls'
+    with pd.ExcelWriter(excel) as fi:
+        df.to_excel(fi, 'after', index=False)
+        date.to_excel(fi, 'before', index=False)
+
+
+    # print(df)
+
+
+def save_excel_by_date():
+    lhbv2_path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/'
+    excel = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb1.xls'
+    filename = os.listdir(lhbv2_path)
+    with pd.ExcelWriter(excel) as f:
+        date1 = {}
+        date2 = {}
+        for fi in filename:
+            if fi.__contains__('DS_Store'):
+                continue
+            title = fi[11:-7].replace('_', '')
+            dpath = os.path.join(lhbv2_path, fi)
+            dd = ioutil.load_pickle(dpath)
+            dd['nline'] = dd['name'] + dd['pchange']
+            code = dd['code'].values.tolist()
+            name = dd['nline'].values.tolist()
+            date1[title] = code
+            date2[title] = name
+        # print(date1)
+        # print(date2)
+        df1 = pd.DataFrame.from_dict(date1, orient='index')
+        df2 = pd.DataFrame.from_dict(date2, orient='index')
+        df1.to_excel(f, 'code', index=True)
+        df2.to_excel(f, 'name', index=True)
+
+# getdetial('/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/longhubang_2020_08_06.pickle')
+save_excel_by_date()
+
+# get_lhb('2020-08-07')
+
+
+
+
+
+
 
 
