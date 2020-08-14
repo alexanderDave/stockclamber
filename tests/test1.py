@@ -56,10 +56,4 @@ if __name__ == "__main__":
     #     f.write(bytes(requests.get(baseurl).text,encoding='utf8'))
     # print(requests.get(baseurl).text)
     # getHq()
-    a = {'a':[1,2],'b':[3,4]}
-    b = pd.DataFrame(data=a)
-    c = b.values
-    d = c[:,0]
-    print(b)
-    print(c)
-    print(d)
+

@@ -40,7 +40,7 @@ def get_lhb(mdate):
     print(mdate)
     while True:
         date = ts.top_list(mdate)
-        file_name = '{0}_{1}.pickle'.format('lhb_path', mdate.replace('-', '_'))
+        file_name = '{0}longhubang_{1}.pickle'.format(lhb_path, mdate.replace('-', '_'))
         if isinstance(date, pd.DataFrame):
             break
         time.sleep(2)
@@ -105,9 +105,10 @@ def getdetial(mpath):
     # print(df)
 
 
-def save_excel_by_date():
-    lhbv2_path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/'
-    excel = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb1.xls'
+def save_excel_by_date(tname):
+    basepath = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb{0}.pickle'.format(tname)
+    lhbv2_path = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb/'
+    excel = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb{0}.xls'.format(tname)
     filename = os.listdir(lhbv2_path)
     with pd.ExcelWriter(excel) as f:
         date1 = {}
@@ -118,7 +119,16 @@ def save_excel_by_date():
             title = fi[11:-7].replace('_', '')
             dpath = os.path.join(lhbv2_path, fi)
             dd = ioutil.load_pickle(dpath)
+            dd = dd.drop(dd[dd['name'].str.contains('ST|退市|退') == True].index)
+            dd = dd.drop_duplicates('code', keep='first', inplace=False)
             dd['nline'] = dd['name'] + dd['pchange']
+
+            # 判断买入buy-sell > 0
+            dd['buy'] = dd['buy'].apply(lambda x: float(x) if x != '' else 0)
+            dd['sell'] = dd['sell'].apply(lambda x: float(x) if x != '' else 0)
+            dd['ot'] = dd['buy'] - dd['sell']
+            dd = dd.drop(dd[dd['ot'] < 0].index)
+
             code = dd['code'].values.tolist()
             name = dd['nline'].values.tolist()
             date1[title] = code
@@ -130,10 +140,15 @@ def save_excel_by_date():
         df1.to_excel(f, 'code', index=True)
         df2.to_excel(f, 'name', index=True)
 
-# getdetial('/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/longhubang_2020_08_06.pickle')
-save_excel_by_date()
+def get_daily_date():
+    now = time.strftime('%Y-%m-%d')
+    get_lhb(now)
 
-# get_lhb('2020-08-07')
+# getdetial('/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/longhubang_2020_08_06.pickle')
+
+dt = time.strftime('%Y%m%d')
+# get_daily_date()
+save_excel_by_date(dt)
 
 
 
