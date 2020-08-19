@@ -43,28 +43,81 @@ class mstock(object):
     def test(self):
         return self.mpath
 
+# 获取股票行业分类数据
+def get_stock_type(mpath, mname):
+
+    df = ts.get_industry_classified()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取股票概念分类
+def get_stock_classified(mpath, mname):
+
+    df = ts.get_concept_classified()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取股票地域分类
+def get_stock_area(mpath, mname):
+
+    df = ts.get_area_classified()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取股票中小板分类
+def get_stock_sme(mpath, mname):
+
+    df = ts.get_sme_classified()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取股票创业板分类
+def get_stock_gme(mpath, mname):
+
+    df = ts.get_gem_classified()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取沪深300成份及权重
+def get_stock_hs300(mpath, mname):
+
+    df = ts.get_hs300s()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取上证50成份股
+def get_stock_sz50(mpath, mname):
+
+    df = ts.get_sz50s()
+    ioutil.save_pickle(df, mpath+mname)
+
+# 获取中证500成份股
+def get_stock_zz50(mpath, mname):
+
+    df = ts.get_zz500s()
+    ioutil.save_pickle(df, mpath+mname)
 
 if __name__ == '__main__':
     # get yyay dates
     # mstock().getAllDate('002365')
 
 #     /Users/yuhandai/OneDrive/project/StockPalt/dates/002365_20200722.pickle
-    path = '/Users/yuhandai/OneDrive/project/StockPalt/model/__pycache__/002365_20200722.pickle'
-    dframe = ioutil.load_pickle(path)
-    mstock().getDaydeal('002365', dframe)
+    zz50 = '/Users/yuhandai/OneDrive/project/StockPalt/dates/zz50.pickle'
+    sz50 = '/Users/yuhandai/OneDrive/project/StockPalt/dates/sz50.pickle'
+    hs300 = '/Users/yuhandai/OneDrive/project/StockPalt/dates/hs300.pickle'
+    cyb = '/Users/yuhandai/OneDrive/project/StockPalt/dates/cyb.pickle'
+    zxb = '/Users/yuhandai/OneDrive/project/StockPalt/dates/zxb.pickle'
+    area = '/Users/yuhandai/OneDrive/project/StockPalt/dates/area.pickle'
+    industry = '/Users/yuhandai/OneDrive/project/StockPalt/dates/industry.pickle'
+    classified = '/Users/yuhandai/OneDrive/project/StockPalt/dates/classified.pickle'
 
-'''
-import tushare as ts
-import mplfinance as mpl
-import utils.ioutil as ioutil
+    basepath = '/Users/yuhandai/OneDrive/project/StockPalt/dates/'
+    # dframe = ioutil.load_pickle(path)
+    # mstock().getDaydeal('002365', dframe)
+    # get_stock_type(basepath, 'industry.pickle')
+    # get_stock_classified(basepath, 'classified.pickle')
+    # get_stock_area(basepath, 'area.pickle')
+    # get_stock_sme(basepath, 'zxb.pickle')
+    # get_stock_gme(basepath, 'cyb.pickle')
+    # get_stock_hs300(basepath, 'hs300.pickle')
+    # get_stock_sz50(basepath, 'sz50.pickle')
+    # get_stock_zz50(basepath, 'zz50.pickle')
+    # df =  ioutil.load_pickle(hs300)
+    df2 = ioutil.load_pickle(area)
+    # print(df['name'].values)
+    print(df2['name'].values.tobytes().decode(''))
 
-code = '002365'
-
-# 
-
-# ioutil.save_pickle(all_date,'20200702_yayy.pickle')
-
-# yayy_date = ioutil.load_pickle('20200702_yayy.pickle')
-# print(yayy_date[:],1)
-# mpl.plot(yayy_date)
-print(day_date)'''

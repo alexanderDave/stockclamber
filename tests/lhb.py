@@ -137,6 +137,7 @@ def save_excel_by_date(tname):
         # print(date2)
         df1 = pd.DataFrame.from_dict(date1, orient='index')
         df2 = pd.DataFrame.from_dict(date2, orient='index')
+        # ioutil.save_pickle(df1, '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb20200819.pickle')
         df1.to_excel(f, 'code', index=True)
         df2.to_excel(f, 'name', index=True)
 
@@ -147,7 +148,7 @@ def get_daily_date():
 # getdetial('/Users/yuhandai/OneDrive/project/StockPalt/dates/lhbv2/longhubang_2020_08_06.pickle')
 
 dt = time.strftime('%Y%m%d')
-# get_daily_date()
+get_daily_date()
 save_excel_by_date(dt)
 
 
