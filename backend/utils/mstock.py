@@ -119,5 +119,5 @@ if __name__ == '__main__':
     # df =  ioutil.load_pickle(hs300)
     df2 = ioutil.load_pickle(area)
     # print(df['name'].values)
-    print(df2['name'].values.tobytes().decode(''))
+    print(df2)
 
