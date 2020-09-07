@@ -6,7 +6,13 @@ import tushare as ts
 import pandas as pd
 import utils.ioutil as ioutil
 
-loadpath = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb20200814.pickle'
+def getcode(code):
+    print(code)
+    lists = df.loc[df.index == code].values.tolist()[0]
+    result = list(filter(None, lists))
+    return result
+
+loadpath = '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb20200904.pickle'
 savepath = '/Users/yuhandai/OneDrive/project/StockPalt/dates/'
 
 df = ioutil.load_pickle(loadpath)
@@ -15,19 +21,23 @@ df = ioutil.load_pickle(loadpath)
 timelist = df.index.tolist()
 list.sort(timelist, reverse=True)
 
-# print(timelist)
+print(len(timelist))
 
 # 将df[[date:stocklist],[date:stocklist]...] 格式转换成
 stock_pool = [] # 已经跑过数据的stock列表
 result = {}
 for ti in timelist:
-    restlist = timelist[timelist.index(ti)+1:]
-    codelist = df.loc[df.index == ti].values.tolist()[0]
-    print(codelist)
+    # codelist：每天上榜的股票
+    codelist = list(filter(None, df.loc[df.index == ti].values.tolist()[0]))
+    # 剩下需要跑的日期list
+    restDate = timelist[timelist.index(ti)+1:]
+
+    print(stock_pool)
     codehistory = []
     for code in codelist:
         # 跑过的数据不再跑
         if code in stock_pool:
+            print('out:', code)
             continue
         if code == None:
             continue
@@ -35,15 +45,21 @@ for ti in timelist:
         # ioutil.save_pickle(histroydate, savepath+code+'.pickle')
         # 记录该股票在龙虎榜里出现的数据
         # print(code)
-        for rest in restlist:
-            restcode = df.loc[df.index == rest].values.tolist()[0]
-            print('restcode:', restcode)
+        codehistory.append(ti)
+        stock_pool.append(code)
+        for _date in restDate:
+            # print('\t\t\t\t第{0}天的数据开始循环{1}往后的'.format(ti, _date))
+            restcode = list(filter(None, df.loc[df.index == _date].values.tolist()[0]))
+            # print('{0}:code:{1}is runing--{2}::{3}'.format(ti, code, _date, restcode))
+            # print('restcode:', restcode)
             if code in restcode:
-                codehistory.append(rest)
-        result[code] = codehistory
+                codehistory.append(_date)
+        finalist = list(set(codehistory))
+
+        result[code] = finalist
 
         # 已经跑过数据的增加记录
-        stock_pool.append(code)
+
 
 mdf = pd.DataFrame.from_dict(result, orient='index')
 ioutil.save_pickle(mdf, savepath+'dateT.pickle')

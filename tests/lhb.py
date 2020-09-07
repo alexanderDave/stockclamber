@@ -137,7 +137,7 @@ def save_excel_by_date(tname):
         # print(date2)
         df1 = pd.DataFrame.from_dict(date1, orient='index')
         df2 = pd.DataFrame.from_dict(date2, orient='index')
-        ioutil.save_pickle(df1, '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb20200828.pickle')
+        ioutil.save_pickle(df1, '/Users/yuhandai/OneDrive/project/StockPalt/dates/lhb20200907.pickle')
         df1.to_excel(f, 'code', index=True)
         df2.to_excel(f, 'name', index=True)
 

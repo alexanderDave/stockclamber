@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy
+import utils.ioutil as ioutil
 
 from utils.DateUtils import stockDate
 
@@ -27,18 +28,11 @@ class Dateanly():
 
 
 if __name__ == '__main__':
-    # yayy = stockDate.readDate('cn_002365')
-    # zmkj = stockDate.readDate('cn_300232')
-    # njgk = stockDate.readDate('cn_600064')
-    # jyh = stockDate.readDate('cn_300619')
-    plk = stockDate.readDate('cn_603566')
+    t = '/Users/yuhandai/OneDrive/project/StockPalt/dates/dateT.pickle'
+    df = ioutil.load_pickle(t)
+    print(df.loc[df.index == '300009'].values.tolist()[0])
 
-    # print(Dateanly.getAvg(yayy))
-    # print(Dateanly.getAvg(zmkj))
-    # print(Dateanly.getAvg(njgk))
-    # print(Dateanly.getAvg(jyh))
-    print(Dateanly.getAvg(plk))
-    date = Dateanly('cn_002365')
-    print(date.getDateAvg())
+    pass
+
 
 
