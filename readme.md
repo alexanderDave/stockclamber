@@ -1,6 +1,10 @@
-# here is a demo for stu.
-- begin of SML
+# 股票数据分析.
 
-- usage
+## 功能点
+- 1. 根据输入的代码下载股票数据并绘制图像辅助分析
+- 2. 分析股票的可赚钱性
+- 3. 其他？
 
-- func
+## 结构
+django + clamber
+
