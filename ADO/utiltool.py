@@ -3,6 +3,7 @@ import os
 import pickle
 from DB import DB
 import datetime
+import pandas as pd
 
 import requests
 
@@ -45,4 +46,34 @@ def save2db(sql, table=None):
 
 if __name__ == '__main__':
     # sendGroupNews('nes<br />&\ngt;sakdjh')
-    getDates()
+
+    from config import config
+    import mplfinance as mpf
+    respath = config().res_path
+    filename = os.path.join(respath, '601601_20220.pickle')
+    pk = loadpickle(filename)
+    pk['日期'] = pd.to_datetime(pk['日期'])
+    pk.set_index(['日期'], inplace=True)
+    pk.index.set_names(['Date'], inplace=True)
+
+    # pk.rename(columns={'开盘':'Open','收盘':'Close','最高':'High','最低':'Low'})
+    column = ['Open','Close','High','Low']
+    plotdate = pk.iloc[:, :4]
+    plotdate.columns = column
+
+    # upboundDC = pd.Series.index(0.0, index=pk.Close.index)
+    # downboundDC = pd.Series.index(0.0, index=pk.Close.index)
+    # midboundDC = pd.Series.index(0.0, index=pk.Close.index)
+
+
+    # print(plotdate)
+
+    mpf.plot(plotdate)
+
+    # # with open(filename, 'rb') as f:
+    # #     pk = (f.read()).decode('gb18030')
+    #
+    # dt = getDates()
+    # name = 'test'
+    # sql = f"insert into stockdata (st_name, pickledate, dt_create) values ('{name}',\"{pk}\" ,'{dt}');"
+    # save2db(sql)

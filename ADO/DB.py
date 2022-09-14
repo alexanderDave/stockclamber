@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 import pymysql
 from config import config
-import utiltool as bt
 
 class DB(object):
     """
@@ -81,17 +80,16 @@ class DB(object):
 
 if __name__ == "__main__":
     print('test env db code goes here:')
-    sql = 'select `asset_id` from asset where `status`=0 order by id desc limit 1;'
-
-    testdb = DB('testdb')
-    testdb.connDb()
-    dt = bt.getDates()
-    name = 'test'
-    sql = f"insert into stockdata (st_name, dt_create) values ('{name}','{dt}');"
-    print(sql)
-    result = testdb.update(sql)
-    # print(result[0][0])
-    testdb.closeDb()
+    # sql = 'select `asset_id` from asset where `status`=0 order by id desc limit 1;'
+    #
+    # testdb = DB('testdb')
+    # testdb.connDb()
+    # name = 'test'
+    # sql = f"insert into stockdata (st_name, dt_create) values ('{name}','2022-09-14');"
+    # print(sql)
+    # result = testdb.update(sql)
+    # # print(result[0][0])
+    # testdb.closeDb()
 
 
 
