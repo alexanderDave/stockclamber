@@ -9,9 +9,9 @@ import requests
 from qiyechatutil import Weichat
 
 
-def getDatenow():
+def getDatenow(days_delta=None):
     ''' 获取现在的时间'''
-    t = datetime.datetime.now().strftime("%Y%m%d")
+    t = datetime.datetime.now().strftime("%Y%m%d") if None == days_delta else (datetime.datetime.now()+datetime.timedelta(days=days_delta)).strftime("%Y%m%d")
     return t
 
 

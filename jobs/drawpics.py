@@ -10,4 +10,5 @@ if __name__ == '__main__':
     codes = config().watchlist
 
     for key,value in codes.items():
-        st = stockdates(key)
+        st = stockdates(key, value)
+        st.getDaily(-90)

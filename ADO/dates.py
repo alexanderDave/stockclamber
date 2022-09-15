@@ -7,32 +7,37 @@ import akshare as ak
 import requests
 from qiyechatutil import Weichat
 import mplfinance as mpf
+import pandas as pd
 
 class stockdates():
 
-    def __init__(self, code):
+    def __init__(self, code, name):
         self.cf = config()
         self.code = code
+        self.name = name
+        self.path = ''
 
 
-    def getDaily(self, st_time, end_time):
+    def getDaily(self, duration):
+        end_time = tool.getDatenow()
+        st_time = tool.getDatenow(duration)
         savepath = self.cf.res_path
         res, name = '', self.code
         dt = tool.getDatenow()
         stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol=self.code, period="daily", start_date=st_time,
                                                 end_date=end_time, adjust="")
-        savename = '{0}_{1}.pickle'.format(self.code, dt)
-        tool.savePickle(savepath, savename, stock_zh_a_hist_df)
-        with open(os.path.join(savepath, savename), 'r') as f:
+        self.path = '{0}_{1}.pickle'.format(self.code, dt)
+        tool.savePickle(savepath, self.path, stock_zh_a_hist_df)
+        with open(os.path.join(savepath, self.path), 'r') as f:
             res = f.read()
         sql = f"insert into stockdata (st_name, pickledate,dt_create) values ('{name}',\"{res}\",'{dt}');"
 
         tool.save2db(sql)
 
-    def genFinance(self):
+    def genFinance(self, rate):
         respath = config().res_path
-        filename = os.path.join(respath, '601601_20220.pickle')
-        pk = loadpickle(filename)
+        filename = os.path.join(respath, self.path)
+        pk = tool.loadpickle(filename)
         pk['日期'] = pd.to_datetime(pk['日期'])
         pk.set_index(['日期'], inplace=True)
         pk.index.set_names(['Date'], inplace=True)
