@@ -31,7 +31,7 @@ class stockdates():
         # sql = f"insert into stockdata (st_name, pickledate,dt_create) values ('{name}',\"{res}\",'{dt}');"
         # tool.save2db(sql)
 
-    def genFinance(self, rates=None, duration=None):
+    def genFinance(self, rates=None, duration=None,mavs=None):
         respath = self.cf.res_path
         filename = os.path.join(respath, self.path)
         pk = tool.loadpickle(filename)
@@ -41,7 +41,7 @@ class stockdates():
 
         pk.rename(columns={'开盘': 'Open', '收盘': 'Close', '最高': 'High', '最低': 'Low'}, inplace=True)
         pk = pk.iloc[:, :4]
-        print(pk)
+        # print(pk)
         upboundDC = pd.Series(0.0, index=pk.Close.index)
         downboundDC = pd.Series(0.0, index=pk.Close.index)
         midboundDC = pd.Series(0.0, index=pk.Close.index)
@@ -49,7 +49,6 @@ class stockdates():
         for _ in range(20, len(pk.Close)):
             upboundDC[_] = max(pk.High[(_ - 20):_])
             downboundDC[_] = min(pk.Low[(_ - 20):_])
-            # midboundDC[_] = 0.382 * (upboundDC[_] + downboundDC[_])
             midboundDC[_] = (upboundDC[_] - downboundDC[_]) * rate + downboundDC[_]
 
         pk['upboundDC'] = upboundDC
@@ -63,7 +62,8 @@ class stockdates():
                     mpf.make_addplot(plotdate['midboundDC'])]
 
         picname = filename.replace('pickle', 'png')
-        mpf.plot(plotdate, type='candle', addplot=add_plot, savefig=picname, title='demotest', mav=5)
+        m = 10 if None == mavs else mavs
+        mpf.plot(plotdate, type='candle', addplot=add_plot, savefig=picname, title=self.name, mav=m)
         Weichat().sendPics(picname)
 
 
