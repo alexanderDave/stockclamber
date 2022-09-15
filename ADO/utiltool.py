@@ -59,11 +59,11 @@ if __name__ == '__main__':
 
     pk.rename(columns={'开盘':'Open','收盘':'Close','最高':'High','最低':'Low'},inplace=True)
     pk = pk.iloc[:, :4]
-    print(pk)
+    # print(pk)
     upboundDC = pd.Series(0.0, index=pk.Close.index)
     downboundDC = pd.Series(0.0, index=pk.Close.index)
     midboundDC = pd.Series(0.0, index=pk.Close.index)
-    rate = 0.4
+    rate = 0.618
     for _ in range(20, len(pk.Close)):
         upboundDC[_] = max(pk.High[(_-20):_])
         downboundDC[_] = min(pk.Low[(_-20):_])
@@ -73,17 +73,22 @@ if __name__ == '__main__':
     pk['upboundDC'] = upboundDC
     pk['downboundDC'] = downboundDC
     pk['midboundDC'] = midboundDC
-    plotdate = pk.iloc[-60:, :]
+    # print(pk)
+    for index in pk.index:
 
-    add_plot = [ mpf.make_addplot(plotdate['upboundDC']),
-                mpf.make_addplot(plotdate['downboundDC']),
-                mpf.make_addplot(plotdate['midboundDC'])]
-
-
-
-    picname = filename.replace('pickle','png')
-    mpf.plot(plotdate,type='candle',addplot=add_plot,savefig=picname,title='demotest',mav=5)
-    Weichat().sendPics(picname)
+        pass
+        # print(pk.loc[index].values[:])
+    # plotdate = pk.iloc[-60:, :]
+    #
+    # add_plot = [ mpf.make_addplot(plotdate['upboundDC']),
+    #             mpf.make_addplot(plotdate['downboundDC']),
+    #             mpf.make_addplot(plotdate['midboundDC'])]
+    #
+    #
+    #
+    # picname = filename.replace('pickle','png')
+    # mpf.plot(plotdate,type='candle',addplot=add_plot,savefig=picname,title='demotest',mav=5)
+    # Weichat().sendPics(picname)
 
 
     # # with open(filename, 'rb') as f:

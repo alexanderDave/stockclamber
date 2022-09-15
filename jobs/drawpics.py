@@ -11,4 +11,5 @@ if __name__ == '__main__':
 
     for key,value in codes.items():
         st = stockdates(key, value)
-        st.getDaily(-90)
+        st.getDaily(-380)
+        st.genFinance()
