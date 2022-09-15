@@ -73,10 +73,10 @@ if __name__ == '__main__':
     pk['upboundDC'] = upboundDC
     pk['downboundDC'] = downboundDC
     pk['midboundDC'] = midboundDC
-    # print(pk)
-    for index in pk.index:
-
-        pass
+    print(pk.loc[pk.index[-1]].values[:])
+    # for index in pk.index:
+    #
+    #     pass
         # print(pk.loc[index].values[:])
     # plotdate = pk.iloc[-60:, :]
     #

@@ -31,7 +31,7 @@ class stockdates():
         # sql = f"insert into stockdata (st_name, pickledate,dt_create) values ('{name}',\"{res}\",'{dt}');"
         # tool.save2db(sql)
 
-    def genFinance(self, rates=None, duration=None, mavs=None):
+    def genFinance(self, rates=None, duration=None, mavs=None,tongdao=None):
         respath = self.cf.res_path
         filename = os.path.join(respath, self.path)
         pk = tool.loadpickle(filename)
@@ -46,9 +46,10 @@ class stockdates():
         downboundDC = pd.Series(0.0, index=pk.Close.index)
         midboundDC = pd.Series(0.0, index=pk.Close.index)
         rate = 0.4 if None == rates else rates
-        for _ in range(20, len(pk.Close)):
-            upboundDC[_] = max(pk.High[(_ - 20):_])
-            downboundDC[_] = min(pk.Low[(_ - 20):_])
+        size = 20 if None == tongdao else tongdao
+        for _ in range(size, len(pk.Close)):
+            upboundDC[_] = max(pk.High[(_ - size):_])
+            downboundDC[_] = min(pk.Low[(_ - size):_])
             midboundDC[_] = (upboundDC[_] - downboundDC[_]) * rate + downboundDC[_]
 
         pk['upboundDC'] = upboundDC
@@ -65,12 +66,10 @@ class stockdates():
         m = 10 if None == mavs else mavs
         mpf.plot(plotdate, type='candle', addplot=add_plot, savefig=picname, title=self.name, mav=m)
         Weichat().sendPics(picname)
+        Weichat().sendTxt('{0}:{1}'.format(self.name, plotdate.loc[pk.index[-1]].values[:]))
 
 
 
 
 if __name__ == '__main__':
     print('dates.py code goes here:')
-    code = '000807'
-    st = stockdates(code)
-    st.getDaily('20200101', '20220913')
