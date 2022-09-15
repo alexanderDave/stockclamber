@@ -31,7 +31,7 @@ class stockdates():
         # sql = f"insert into stockdata (st_name, pickledate,dt_create) values ('{name}',\"{res}\",'{dt}');"
         # tool.save2db(sql)
 
-    def genFinance(self, rates=None, duration=None,mavs=None):
+    def genFinance(self, rates=None, duration=None, mavs=None):
         respath = self.cf.res_path
         filename = os.path.join(respath, self.path)
         pk = tool.loadpickle(filename)
