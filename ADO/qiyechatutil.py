@@ -32,9 +32,9 @@ class Weichat():
 
     def sendPics(self, pic):
         b64 = self.genPicBs64(pic)
-        print(b64)
+        # print(b64)
         md5 = self.genPicMd5(pic)
-        print(md5)
+        # print(md5)
         dates ={
             "msgtype": "image",
             "image": {
@@ -42,9 +42,9 @@ class Weichat():
                 "md5": f"{md5}"
             }
         }
-        print(dates)
+        # print(dates)
         resp = requests.post(self.uri, headers={'Content-Type': 'application/json'}, json=dates)
-        print(resp.json())
+        # print(resp.json())
 
     def sendNews(self):
 

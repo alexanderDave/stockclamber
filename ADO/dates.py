@@ -16,10 +16,10 @@ class stockdates():
     def getDaily(self, st_time, end_time):
         savepath = self.cf.res_path
         res, name = '', self.code
-        dt = tool.getDates()
+        dt = tool.getDatenow()
         stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol=self.code, period="daily", start_date=st_time,
                                                 end_date=end_time, adjust="")
-        savename = '{0}_{1}.pickle'.format(self.code, (dt[:6]).replace('-',''))
+        savename = '{0}_{1}.pickle'.format(self.code, dt)
         tool.savePickle(savepath, savename, stock_zh_a_hist_df)
         with open(os.path.join(savepath, savename), 'r') as f:
             res = f.read()

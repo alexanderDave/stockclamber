@@ -7,6 +7,7 @@ class config():
         self.res_path = os.path.join(self.root_Path, 'resource')
         self.plot_path = os.path.join(self.root_Path, 'plot')
         self.mysqlinfo = ('127.0.0.1', 3306, 'root', '2021@lskj')
+        self.watchlist = {}
 
 
 

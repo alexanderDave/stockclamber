@@ -6,11 +6,12 @@ import datetime
 import pandas as pd
 
 import requests
+from qiyechatutil import Weichat
 
 
-def getDates():
+def getDatenow():
     ''' 获取现在的时间'''
-    t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    t = datetime.datetime.now().strftime("%Y%m%d")
     return t
 
 
@@ -62,7 +63,7 @@ if __name__ == '__main__':
     upboundDC = pd.Series(0.0, index=pk.Close.index)
     downboundDC = pd.Series(0.0, index=pk.Close.index)
     midboundDC = pd.Series(0.0, index=pk.Close.index)
-    rate = 0.382
+    rate = 0.4
     for _ in range(20, len(pk.Close)):
         upboundDC[_] = max(pk.High[(_-20):_])
         downboundDC[_] = min(pk.Low[(_-20):_])
@@ -80,8 +81,10 @@ if __name__ == '__main__':
 
 
 
+    picname = filename.replace('pickle','png')
+    mpf.plot(plotdate,type='candle',addplot=add_plot,savefig=picname,title='demotest',mav=5)
+    Weichat().sendPics(picname)
 
-    mpf.plot(plotdate,type='candle',addplot=add_plot,savefig=(filename.replace('pickle','png')))
 
     # # with open(filename, 'rb') as f:
     # #     pk = (f.read()).decode('gb18030')
