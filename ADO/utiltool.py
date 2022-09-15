@@ -62,11 +62,12 @@ if __name__ == '__main__':
     upboundDC = pd.Series(0.0, index=pk.Close.index)
     downboundDC = pd.Series(0.0, index=pk.Close.index)
     midboundDC = pd.Series(0.0, index=pk.Close.index)
-
+    rate = 0.382
     for _ in range(20, len(pk.Close)):
         upboundDC[_] = max(pk.High[(_-20):_])
         downboundDC[_] = min(pk.Low[(_-20):_])
-        midboundDC[_] = 0.5 * (upboundDC[_] + downboundDC[_])
+        # midboundDC[_] = 0.382 * (upboundDC[_] + downboundDC[_])
+        midboundDC[_] = (upboundDC[_] - downboundDC[_]) * rate + downboundDC[_]
 
     pk['upboundDC'] = upboundDC
     pk['downboundDC'] = downboundDC
@@ -80,7 +81,7 @@ if __name__ == '__main__':
 
 
 
-    mpf.plot(plotdate,type='candle',addplot=add_plot)
+    mpf.plot(plotdate,type='candle',addplot=add_plot,savefig=(filename.replace('pickle','png')))
 
     # # with open(filename, 'rb') as f:
     # #     pk = (f.read()).decode('gb18030')
