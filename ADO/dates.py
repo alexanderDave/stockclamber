@@ -66,7 +66,7 @@ class stockdates():
         picname = filename.replace('pickle', 'png')
         m = 10 if None == mavs else mavs
         mpf.plot(plotdate, type='candle', addplot=add_plot, savefig=picname, title=self.name, mav=m)
-        time.sleep(8)
+        time.sleep(8)  # add beacuse wxrobot limits rates of msg send 20 pis/min
         Weichat().sendPics(picname)
         Weichat().sendTxt('{0}:{1}'.format(self.name, plotdate.loc[pk.index[-1]].values[:]))
 
