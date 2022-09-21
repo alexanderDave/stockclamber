@@ -49,52 +49,20 @@ if __name__ == '__main__':
     # sendGroupNews('nes<br />&\ngt;sakdjh')
 
     from config import config
-    import mplfinance as mpf
-    respath = config().res_path
-    filename = os.path.join(respath, '601601_20220.pickle')
-    pk = loadpickle(filename)
-    pk['日期'] = pd.to_datetime(pk['日期'])
-    pk.set_index(['日期'], inplace=True)
-    pk.index.set_names(['Date'], inplace=True)
+    res_path = config().res_path
+    listfile = os.listdir(res_path)
+    pickles = []
+    for _ in listfile:
+        print(_)
+        if _.endswith('.pickle'):
+            code = _.split('_')[0]
+            __ = loadpickle(os.path.join(res_path, _))
+            __['code'] = code
+            pickles.append(__)
 
-    pk.rename(columns={'开盘':'Open','收盘':'Close','最高':'High','最低':'Low'},inplace=True)
-    pk = pk.iloc[:, :4]
-    # print(pk)
-    upboundDC = pd.Series(0.0, index=pk.Close.index)
-    downboundDC = pd.Series(0.0, index=pk.Close.index)
-    midboundDC = pd.Series(0.0, index=pk.Close.index)
-    rate = 0.618
-    for _ in range(20, len(pk.Close)):
-        upboundDC[_] = max(pk.High[(_-20):_])
-        downboundDC[_] = min(pk.Low[(_-20):_])
-        # midboundDC[_] = 0.382 * (upboundDC[_] + downboundDC[_])
-        midboundDC[_] = (upboundDC[_] - downboundDC[_]) * rate + downboundDC[_]
+    from sqlalchemy import create_engine
+    con = create_engine('mysql+pymysql://root:2021%40lskj@127.0.0.1:3306/testdb')
 
-    pk['upboundDC'] = upboundDC
-    pk['downboundDC'] = downboundDC
-    pk['midboundDC'] = midboundDC
-    print(pk.loc[pk.index[-1]].values[:])
-    # for index in pk.index:
-    #
-    #     pass
-        # print(pk.loc[index].values[:])
-    # plotdate = pk.iloc[-60:, :]
-    #
-    # add_plot = [ mpf.make_addplot(plotdate['upboundDC']),
-    #             mpf.make_addplot(plotdate['downboundDC']),
-    #             mpf.make_addplot(plotdate['midboundDC'])]
-    #
-    #
-    #
-    # picname = filename.replace('pickle','png')
-    # mpf.plot(plotdate,type='candle',addplot=add_plot,savefig=picname,title='demotest',mav=5)
-    # Weichat().sendPics(picname)
+    for _ in pickles:
+        _.to_sql('code_dtail_day', con=con, if_exists='append')
 
-
-    # # with open(filename, 'rb') as f:
-    # #     pk = (f.read()).decode('gb18030')
-    #
-    # dt = getDates()
-    # name = 'test'
-    # sql = f"insert into stockdata (st_name, pickledate, dt_create) values ('{name}',\"{pk}\" ,'{dt}');"
-    # save2db(sql)
