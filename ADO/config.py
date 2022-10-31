@@ -20,3 +20,4 @@ class config():
 
 if __name__ == '__main__':
     cf = config()
+    print(cf.res_path)

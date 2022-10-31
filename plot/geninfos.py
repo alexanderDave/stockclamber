@@ -9,13 +9,13 @@ import utiltool as ut
 
 class Notices():
 
-    def __init__(self, pickles):
+    def __init__(self, pickles):c
         self.cf = config()
-        self.data = ut.loadpickle(os.path.join(cf.res_path, pickles))
+        self.data = ut.loadpickle(os.path.join(self.cf.res_path, pickles))
 
 
     def getNotice(self):
-        
+
         pass
 
 
@@ -23,3 +23,6 @@ class Notices():
 
 if __name__ == '__main__':
     print('gen infos')
+#     test code = 601601_20220915.pickle
+    nt = Notices('601601_20220915.pickle')
+    print(nt.data)

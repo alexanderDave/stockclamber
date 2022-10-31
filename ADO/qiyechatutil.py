@@ -7,7 +7,8 @@ import requests
 class Weichat():
 
     def __init__(self):
-        self.uri = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=98253339-56d9-422a-bdff-8596abf7f8e1'
+        # self.uri = 'https://qygitapi.weixin.qq.com/cgi-bin/webhook/send?key=98253339-56d9-422a-bdff-8596abf7f8e1'
+        self.uri = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b4c9e32d-08b1-4e16-b5d2-f2cd16a64b8f'
 
 
 
