@@ -74,4 +74,6 @@ if __name__ == '__main__':
 
     bt = Weichat()
     # bt.sendMarkdown('asdsadasda')
-    bt.sendPics(pic)
+    # bt.sendPics(pic)
+    ct = "我的亲亲宝贝敏敏老婆呀~~ 你的伟伟老公好想你呢~~~"
+    bt.sendTxt(ct)
