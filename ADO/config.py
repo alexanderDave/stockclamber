@@ -10,9 +10,9 @@ class config():
         self.watchlist = {'300081':'HengXinDF','300364':'ZhongWenZX','600031':'SanYiZG',
                           '300014':'YiWeiLN','002007':'HuaLanSW','000625':'changanQC',
                           '601066':'ZhongXinJT','300059':'DongFCaiFu', '300999':'JingLongYu',
-                          '300058':'LanSeGuangB','301091':'ShenChenJiao','601888':'ZGzm',
+                          '002365':'YAYaoYe','301091':'ShenChenJiao','601888':'ZGzm',
                           '300223':'BeiJingJZ','002497':'YaHuaJiTUan','300581':'ChenXiHangKong',
-                          '300088': 'ChangXinKeJi', '002409': 'YaKeKeJi',
+                          '300088': 'ChangXinKeJi', '002409': 'YaKeKeJi','000301': 'DFshenghong',
                           }
 
 
