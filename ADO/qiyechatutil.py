@@ -9,6 +9,7 @@ class Weichat():
     def __init__(self):
         # self.uri = 'https://qygitapi.weixin.qq.com/cgi-bin/webhook/send?key=98253339-56d9-422a-bdff-8596abf7f8e1'
         self.uri = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b4c9e32d-08b1-4e16-b5d2-f2cd16a64b8f'
+        self.uri2 ='https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=a0155870-4e3e-4bbb-8e64-0f6467976e3f'
 
 
 
@@ -20,6 +21,7 @@ class Weichat():
             }
         }
         resp = requests.post(self.uri, headers={'Content-Type': 'application/json'}, json=dates)
+        resp = requests.post(self.uri2, headers={'Content-Type': 'application/json'}, json=dates)
 
 
     def sendMarkdown(self, dt):
@@ -45,6 +47,7 @@ class Weichat():
         }
         # print(dates)
         resp = requests.post(self.uri, headers={'Content-Type': 'application/json'}, json=dates)
+        resp = requests.post(self.uri2, headers={'Content-Type': 'application/json'}, json=dates)
         # print(resp.json())
 
     def sendNews(self):
