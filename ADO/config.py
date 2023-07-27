@@ -13,6 +13,10 @@ class config():
                           '002365':'YAYaoYe','301091':'ShenChenJiao','601888':'ZGzm',
                           '300223':'BeiJingJZ','002497':'YaHuaJiTUan','300581':'ChenXiHangKong',
                           '300088': 'ChangXinKeJi', '002409': 'YaKeKeJi','000301': 'DFshenghong',
+                          '600795':'GuoDianDL','603566':'PuLaiKe','300957':'BeiTaiNi','002555':'SanQiHY',
+                          '002432':'JiuAnYL','600703':'SanAnGD','002271':'DongFangYH','002056':'HengDianDC',
+                          '601216':'JunZhengJT','600316':'HongDuHK','000768':'ZhongHangXF',
+                          '601899':'ZiJingKY'
                           }
 
 
